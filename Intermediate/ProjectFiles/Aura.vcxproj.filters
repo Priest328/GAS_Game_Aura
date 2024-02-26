@@ -43,6 +43,15 @@
     <Filter Include="Source\Aura\Private">
       <UniqueIdentifier>{614644D7-6FA7-303B-9CB5-F9579003D315}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Aura\Private\AbilitySystem">
+      <UniqueIdentifier>{E12B047D-3563-3B0F-A31F-6CA534A3F38C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Aura\Private\AbilitySystem\AuraAbilitySystemComponent.cpp">
+      <Filter>Source\Aura\Private\AbilitySystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\AbilitySystem\AuraAttributeSet.cpp">
+      <Filter>Source\Aura\Private\AbilitySystem</Filter>
+    </ClCompile>
     <Filter Include="Source\Aura\Private\Character">
       <UniqueIdentifier>{02E07034-0FE1-3A7C-A01D-10DA4A11D5EE}</UniqueIdentifier>
     </Filter>
@@ -73,9 +82,21 @@
     <ClCompile Include="..\..\Source\Aura\Private\Player\AuraPlayerController.cpp">
       <Filter>Source\Aura\Private\Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\Player\AuraPlayerState.cpp">
+      <Filter>Source\Aura\Private\Player</Filter>
+    </ClCompile>
     <Filter Include="Source\Aura\Public">
       <UniqueIdentifier>{812D085E-218E-32A1-B6D9-A817B3D0072A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Aura\Public\AbilitySystem">
+      <UniqueIdentifier>{E77883A5-D48A-34F9-8FEA-EA980135BDF7}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Aura\Public\AbilitySystem\AuraAbilitySystemComponent.h">
+      <Filter>Source\Aura\Public\AbilitySystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Aura\Public\AbilitySystem\AuraAttributeSet.h">
+      <Filter>Source\Aura\Public\AbilitySystem</Filter>
+    </ClInclude>
     <Filter Include="Source\Aura\Public\Character">
       <UniqueIdentifier>{5BC97E21-9AE0-3A5A-B1AE-66CDA5B00EB5}</UniqueIdentifier>
     </Filter>
@@ -104,6 +125,9 @@
       <UniqueIdentifier>{92C9D14F-9ACD-3BE9-BD79-820E68D968CD}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\Aura\Public\Player\AuraPlayerController.h">
+      <Filter>Source\Aura\Public\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Aura\Public\Player\AuraPlayerState.h">
       <Filter>Source\Aura\Public\Player</Filter>
     </ClInclude>
   </ItemGroup>
