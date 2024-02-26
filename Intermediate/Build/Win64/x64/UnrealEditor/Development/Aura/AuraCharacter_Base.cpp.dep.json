@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "d:\\workproject\\aura\\source\\aura\\private\\auracharacter_base.cpp",
+        "Source": "d:\\workproject\\aura\\source\\aura\\private\\character\\auracharacter_base.cpp",
         "ProvidedModule": "",
         "PCH": "d:\\ue_5.3_source\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\engine\\sharedpch.engine.cpp20.inclorderunreal5_0.h.pch",
         "Includes": [
             "d:\\workproject\\aura\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\aura\\definitions.aura.h",
-            "d:\\workproject\\aura\\source\\aura\\public\\auracharacter_base.h",
+            "d:\\workproject\\aura\\source\\aura\\public\\character\\auracharacter_base.h",
             "d:\\ue_5.3_source\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
             "d:\\ue_5.3_source\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
             "d:\\ue_5.3_source\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",

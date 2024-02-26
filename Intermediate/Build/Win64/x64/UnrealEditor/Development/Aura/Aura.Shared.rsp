@@ -260,6 +260,8 @@
 /I "D:\WorkProject\Aura\Intermediate\Build\Win64\UnrealEditor\Inc\Aura\UHT"
 /I "D:\WorkProject\Aura\Source"
 /I "D:\WorkProject\Aura\Source\Aura\Public"
+/I "..\Plugins\EnhancedInput\Intermediate\Build\Win64\UnrealEditor\Inc\EnhancedInput\UHT"
+/I "..\Plugins\EnhancedInput\Source\EnhancedInput\Public"
 /external:W0
 /external:I "ThirdParty\mimalloc\include"
 /external:I "ThirdParty\LibTiff\Source\Win64"
