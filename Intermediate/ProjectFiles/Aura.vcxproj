@@ -180,6 +180,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\Actor\AuraEffectActor.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Aura\Private\Character\AuraCharacter_Base.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -215,8 +220,29 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\UI\HUD\AuraHUD.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\UI\Widget\AuraUserWidget.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\UI\WidgetController\AuraWidgetController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Aura\Private\UI\WidgetController\OverlayWidgetController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClInclude Include="..\..\Source\Aura\Public\AbilitySystem\AuraAbilitySystemComponent.h"/>
     <ClInclude Include="..\..\Source\Aura\Public\AbilitySystem\AuraAttributeSet.h"/>
+    <ClInclude Include="..\..\Source\Aura\Public\Actor\AuraEffectActor.h"/>
     <ClInclude Include="..\..\Source\Aura\Public\Character\AuraCharacter_Base.h"/>
     <ClInclude Include="..\..\Source\Aura\Public\Character\AuraEnemyCharacter.h"/>
     <ClInclude Include="..\..\Source\Aura\Public\Character\AuraMainCharacter.h"/>
@@ -224,6 +250,10 @@
     <ClInclude Include="..\..\Source\Aura\Public\Interaction\EnemyInterface.h"/>
     <ClInclude Include="..\..\Source\Aura\Public\Player\AuraPlayerController.h"/>
     <ClInclude Include="..\..\Source\Aura\Public\Player\AuraPlayerState.h"/>
+    <ClInclude Include="..\..\Source\Aura\Public\UI\HUD\AuraHUD.h"/>
+    <ClInclude Include="..\..\Source\Aura\Public\UI\Widget\AuraUserWidget.h"/>
+    <ClInclude Include="..\..\Source\Aura\Public\UI\WidgetController\AuraWidgetController.h"/>
+    <ClInclude Include="..\..\Source\Aura\Public\UI\WidgetController\OverlayWidgetController.h"/>
   </ItemGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
