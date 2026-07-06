@@ -6,6 +6,17 @@
 #include "AbilitySystemComponent.h"
 #include "AuraWidgetController.generated.h"
 
+class UAbilityInfo;
+class UAuraAttributeSet;
+class UAuraAbilitySystemComponent;
+class AAuraPlayerState;
+class AAuraPlayerController;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerStatChangedSignature, int32, NewValue);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAbilityInfoSignateure, const FAuraAbilityInfo&, AbilityInfo);
+
+
 USTRUCT(BlueprintType)
 struct FWidgetControllerParams
 {
@@ -36,17 +47,31 @@ struct FWidgetControllerParams
 /**
  * 
  */
-
 UCLASS()
 class AURA_API UAuraWidgetController : public UObject
 {
 	GENERATED_BODY()
+
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetWidgetContollerParams(const FWidgetControllerParams& WCParams);
+	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
 
+	UFUNCTION(BlueprintCallable)
 	virtual void BroadcastInitialValues();
 	virtual void BindCallbacksToDependencies();
+
+public:
+	AAuraPlayerController* GetAuraPlayerController();
+	AAuraPlayerState* GetAuraPlayerState();
+	UAuraAbilitySystemComponent* GetAuraAbilitySystemComponent();
+	UAuraAttributeSet* GetAuraAttributeSet();
+	
+	void BroadcastAbiltyInfo();
+
+public:
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Messages")
+	FAbilityInfoSignateure AbilityInfoDelegate;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
 	TObjectPtr<APlayerController> PlayerController = nullptr;
@@ -59,4 +84,19 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
 	TObjectPtr<UAttributeSet> AttributeSet = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, Category = "WidgetController|Aura")
+	TObjectPtr<AAuraPlayerController> AuraPlayerController = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, Category = "WidgetController|Aura")
+	TObjectPtr<AAuraPlayerState> AuraPlayerState = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, Category = "WidgetController|Aura")
+	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, Category = "WidgetController|Aura")
+	TObjectPtr<UAuraAttributeSet> AuraAttributeSet = nullptr;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WidgetData")
+	TObjectPtr<UAbilityInfo> AbilityInfo;
 };

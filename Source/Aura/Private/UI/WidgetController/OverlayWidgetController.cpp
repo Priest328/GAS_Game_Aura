@@ -3,51 +3,84 @@
 
 #include "UI/WidgetController/OverlayWidgetController.h"
 
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "AbilitySystem/Data/AbilityInfo.h"
+#include "AbilitySystem/Data/LevelUpInfo.h"
+#include "Player/AuraPlayerState.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
 {
-	const UAuraAttributeSet* AuraAttributes = CastChecked<UAuraAttributeSet>(AttributeSet);
-
-	OnHealthChanged.Broadcast(AuraAttributes->GetHealth());
-	OnMaxHealthChanged.Broadcast(AuraAttributes->GetMaxHealth());
-	OnManaChanged.Broadcast(AuraAttributes->GetMana());
-	OnMaxManaChanged.Broadcast(AuraAttributes->GetMaxMana());
+	OnHealthChanged.Broadcast(GetAuraAttributeSet()->GetHealth());
+	OnMaxHealthChanged.Broadcast(GetAuraAttributeSet()->GetMaxHealth());
+	OnManaChanged.Broadcast(GetAuraAttributeSet()->GetMana());
+	OnMaxManaChanged.Broadcast(GetAuraAttributeSet()->GetMaxMana());
 }
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
 {
-	const UAuraAttributeSet* AuraAttributes = CastChecked<UAuraAttributeSet>(AttributeSet);
-
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributes->GetHealthAttribute()).AddUObject(
-		this, &UOverlayWidgetController::HealthChanged);
+	GetAuraPlayerState()->OnXPChangedDelegate.AddUObject(this,&UOverlayWidgetController::OnXPChanged);
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributes->GetMaxHealthAttribute()).AddUObject(
-	this, &UOverlayWidgetController::MaxHealthChanged);
+	GetAuraPlayerState()->OnLevelChangedDelegate.AddLambda([this](int32 NewLevel)
+	{
+		OnPlayerLevelChangedDelegate.Broadcast(NewLevel);
+	});
 
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributes->GetManaAttribute()).AddUObject(
-	this, &UOverlayWidgetController::ManaChanged);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetAuraAttributeSet()->GetHealthAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data) { OnHealthChanged.Broadcast(Data.NewValue); });
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetAuraAttributeSet()->GetMaxHealthAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data) { OnMaxHealthChanged.Broadcast(Data.NewValue); });
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetAuraAttributeSet()->GetManaAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data) { OnManaChanged.Broadcast(Data.NewValue); });
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetAuraAttributeSet()->GetMaxManaAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data) { OnMaxManaChanged.Broadcast(Data.NewValue); });
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributes->GetMaxManaAttribute()).AddUObject(
-	this, &UOverlayWidgetController::MaxManaChanged);
+	GetAuraAbilitySystemComponent()->EffectAssetTags.AddLambda(
+		[this](const FGameplayTagContainer& AssetTags)
+		{
+			for (auto Tag : AssetTags)
+			{
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+				if (Tag.MatchesTag(MessageTag))
+				{
+					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					MessageWidgetRow.Broadcast(*Row);
+				}
+			}
+		}
+	);
+
+	if (GetAuraAbilitySystemComponent()->bStartupAbilitiesGiven)
+	{
+		BroadcastAbiltyInfo();
+	}
+	else
+	{
+		GetAuraAbilitySystemComponent()->AbilitiesGivenDelegate.AddUObject(this, &UOverlayWidgetController::BroadcastAbiltyInfo);
+	}
 }
 
-void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
+void UOverlayWidgetController::OnXPChanged(int32 NewXP)
 {
-	OnHealthChanged.Broadcast(Data.NewValue);
-}
+	const ULevelUpInfo* LevelUpInfo = GetAuraPlayerState()->GetLevelUpInfo();
+	check(LevelUpInfo);
 
-void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
-{
-	OnMaxHealthChanged.Broadcast(Data.NewValue);
-}
+	const int32 CurrentLevel = LevelUpInfo->GetCurrentLevelByXP(NewXP);
+	const int32 MaxLevel = LevelUpInfo->LevelUpList.Num();
+	
+	if (CurrentLevel <= MaxLevel && CurrentLevel >= 0)
+	{
+		int32 PreviousLevelUpRequirement = LevelUpInfo->LevelUpList.IsValidIndex(CurrentLevel - 1) ? LevelUpInfo->LevelUpList[CurrentLevel - 1].LevelUpRequirement : 0;
+		int32 LevelUpRequirement = LevelUpInfo->LevelUpList[CurrentLevel].LevelUpRequirement;
 
-void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& Data) const
-{
-	OnManaChanged.Broadcast(Data.NewValue);
-}
+		const int32 DeltaLevelRequirement = LevelUpRequirement - PreviousLevelUpRequirement;
+		const int32 XPForThisLevel = NewXP - PreviousLevelUpRequirement;
 
-void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& Data) const
-{
-	OnMaxManaChanged.Broadcast(Data.NewValue);
+		const float XPBarPercentage = static_cast<float>(XPForThisLevel) / static_cast<float>(DeltaLevelRequirement);
+
+		OnXPPercentChangedDelegate.Broadcast(XPBarPercentage);
+	}
 }

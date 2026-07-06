@@ -1,0 +1,57 @@
+# Visual Studio user specific files
+.vs/
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.sln.DotSettings.user
+
+# Compiled object files and binaries
+*.slo
+*.lo
+*.o
+*.obj
+*.gch
+*.pch
+*.so
+*.dylib
+*.dll
+*.mod
+*.lai
+*.la
+*.a
+*.lib
+*.exe
+*.out
+*.app
+*.ipa
+
+# Generated IDE project files
+*.xcodeproj
+*.xcworkspace
+*.sln
+
+# Precompiled source assets
+SourceArt/**/*.png
+SourceArt/**/*.tga
+
+# Unreal generated output
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+Build/
+
+# Plugin generated output
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+
+# Built data for maps
+*_BuiltData.uasset
+
+# Keep packaged blacklist files and icons if added intentionally
+!Build/
+!Build/**/
+!Build/**/PakBlacklist*.txt
+!Build/**/*.ico
