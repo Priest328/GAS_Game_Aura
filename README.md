@@ -1,18 +1,30 @@
 # Aura
 
-Aura is an Unreal Engine action RPG project built around the Gameplay Ability System. The project combines C++ gameplay systems with Blueprint-authored content for abilities, enemies, UI, input, pickups, and level setup.
+Aura is a stylized Unreal Engine action RPG prototype built around the Gameplay Ability System. The project combines C++ gameplay architecture with Blueprint-authored abilities, enemies, UI, animation hooks, combat feedback, pickups, and dungeon content.
 
-## Project Status
+## Screenshots
 
-This repository contains an in-development Unreal project. The main gameplay work currently includes:
+| Combat HUD | Enemy Encounter |
+| --- | --- |
+| ![Combat with critical hit feedback](Docs/Screenshots/combat-critical-hit.png) | ![Enemy encounter using StateTree AI](Docs/Screenshots/state-tree-encounter.png) |
 
-- Gameplay Ability System setup for player and enemy characters
-- Attribute sets, gameplay effects, damage execution, cooldown and cost data
-- Firebolt, summon, melee, ranged, and hit reaction ability foundations
-- Attribute menu, spell menu, overlay HUD, floating damage text, health, mana, XP, and spell UI widgets
-- Enemy AI assets, StateTree behavior, EQS helpers, and enemy class data
-- Enhanced Input actions and input configuration
-- Dungeon map, character/enemy assets, VFX, SFX, pickups, and gameplay data tables
+![Firebolt combat encounter](Docs/Screenshots/firebolt-combat.png)
+
+## Features
+
+- Gameplay Ability System integration for player and enemy characters
+- Attribute sets, gameplay effects, damage execution, cooldowns, costs, XP, and level-up data
+- Firebolt, summon, melee, ranged, hit reaction, and passive ability foundations
+- Spell menu, attribute menu, overlay HUD, health, mana, XP, spell slots, and floating damage text
+- Enemy AI built with Unreal StateTree, supported by EQS helpers and enemy class data
+- Enhanced Input setup for movement, mouse targeting, and ability activation
+- Dungeon combat space with enemy types, pickups, VFX, SFX, and Blueprint gameplay actors
+
+## Technical Focus
+
+The C++ layer owns the core gameplay systems: ability system setup, attributes, gameplay tags, damage calculations, ability helpers, widget controllers, input binding, projectiles, and combat interfaces. Blueprints are used for content assembly and iteration: abilities, gameplay effects, UI widgets, enemy variants, StateTree assets, maps, and data assets.
+
+Enemy behavior is driven through Unreal StateTree instead of a purely hard-coded AI flow. This keeps combat behavior data-driven while still allowing C++ systems to provide reusable gameplay, targeting, and combat functionality.
 
 ## Requirements
 
@@ -43,11 +55,12 @@ If IDE files are missing, regenerate project files from the `.uproject` context 
 ## Repository Layout
 
 ```text
-Config/     Project and gameplay tag configuration
-Content/    Unreal assets, Blueprints, maps, VFX, SFX, UI, and data assets
-Data/       Source data tables used by gameplay systems
-Plugins/    Project plugins
-Source/     Aura C++ runtime module
+Config/              Project and gameplay tag configuration
+Content/             Unreal assets, Blueprints, maps, VFX, SFX, UI, and data assets
+Data/                Source data tables used by gameplay systems
+Docs/Screenshots/    README screenshots
+Plugins/             Project plugins
+Source/              Aura C++ runtime module
 ```
 
 ## Generated Files
